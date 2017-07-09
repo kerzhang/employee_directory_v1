@@ -1,0 +1,147 @@
+/* Document
+   ========================================================================== */
+
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f0f0f0;
+  font-family: sans-serif;
+}
+
+/* Layout
+   ========================================================================== */
+
+/**
+ * 
+ */
+.wrapper {
+  margin: 0 auto;
+}
+.main-footer {
+  padding: 1em 0;
+  text-align: center;
+}
+.main-header {
+  padding: 1em 0;
+  width: 80%;
+  margin: 0 auto;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* Elements
+   ========================================================================== */
+
+.caption {
+  display: inline-block;
+  color: #696969;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+.name-filter {
+  display: inline-block;
+}
+
+.card {
+  /*float: left;*/
+  display: inline-flex;
+  width: 30%;
+  width: 350px;
+  height: 150px;
+  border: 1.5px solid #e0dcd8;
+  border-radius: 6px;
+  margin-right: 16px;
+  margin-left: 16px;
+  margin-bottom: 28px;
+  padding: 15px auto;
+  background: #fff;
+}
+
+.image {
+  transition: 0.3s;
+  padding: 5px 2px;
+  margin-right: 10px;
+}
+img {
+  border-radius: 50%;
+  display: inline;
+  /*padding-left: 5px;
+  padding-right: 5px;*/
+  padding: 10px;
+}
+.image:hover {
+  background: #dfe3e4;
+}
+
+.info {
+  padding: 40px 10px 0 0;
+  display: inline;
+}
+
+.info li {
+  margin-top: 5px;
+}
+/* Font 
+   ========================================================================== */
+
+.name {
+  font-size: 1em;
+  color: #000;
+  font-weight: bold;
+}
+.email {
+  font-size: 0.8em;
+  color: #696969;
+}
+
+.location {
+  font-size: 0.8em;
+  color: #696969;
+}
+
+/* Media query
+   ========================================================================== */
+@media (min-width: 769px) {
+  .caption {
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+  }
+  .name-filter {
+    float: right;
+    margin-right: 50px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+  }
+
+  .image {
+    float: left;
+  }
+  .info {
+    float: left;
+  }
+  .clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .main-header,
+  .main-content {
+    max-width: 1185px;
+  }
+}

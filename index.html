@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <title>Employee Directory</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/lightbox.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main-header clearfix">
+            <header>
+                <h3 class="caption">AWESOME STARTUP EMPLOYEE DIRECTORY</h3>
+                <div class="name-filter">
+                    <label for="filter">Filter by name</label>
+                    <input type="text" name="filter" id="filter">
+                </div>
+            </header>
+        </div>
+        <div class='main-content clearfix'>
+            <ul id="employee" class='ajax'>
+                <li class="card clearfix">
+                    <a href='#' class='image clearfix'>
+                            <img src="https://randomuser.me/api/portraits/men/87.jpg">
+                            </a>
+                    <ul class="info">
+                        <li class="name">a male employee</li>
+                        <li class="email">man@dfdfd.com</li>
+                        <li class="location">USA</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="main-footer"><span> I just sit here silently...</span></footer>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/lightbox.js"></script>
+    <script src="./js/App.js"></script>
+
+</body>
+
+</html>
