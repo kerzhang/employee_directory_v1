@@ -1,4 +1,5 @@
 let $employeeDirectory = $(".ajax");
+let employees = [];
 
 function fetchData() {
   $.ajax({
@@ -8,7 +9,7 @@ function fetchData() {
     dataType: "json",
     success: function (data) {
       $.each(data.results, function (index, item) {
-        let $card = `<li class="card clearfix" onClick="loadModal($(this));">
+        let $card = `<li class="card clearfix" onClick="loadModal(${index});">
                           <a href="#" class='image clearfix'>
                             <img src=${item.picture.large}>
                             </a>
@@ -16,35 +17,45 @@ function fetchData() {
                             <li class="name">${item.name.first} ${item.name.last} </li>
                             <li class="email">${item.email} </li>
                             <li class="location">${item.location.city}, ${item.nat}</li>
+                            <li class="username" style="display: none">${item.login.username}</li>
+                            <li class="cell" style="display: none">${item.cell}</li>
+                            <li class="address" style="display: none">${item.location.street}, ${item.location.postcode}</li>
+                            <li class="birth" style="display: none">${item.dob}</li>
+                            <li class="sn" style="display: none">${index}</li>
                           </ul>
                         </li>
                       `;
-        // let $card = '<a href="#" class="image clearfix">' + '<img src="' + item.picture.large + '">';
+        employees.push(item);
         $employeeDirectory.append($card);
       });
-      // console.log(data);
     }
   });
 }
 
-function loadModal(card) {
-  console.log(card);
-  let image = card.children('.image').children('img').prop('src');
-  let name = card.children('.info').children('.name').text();
-  let email = card.children('.info').children('.email').text();
-  let location = card.children('.info').children('.location').text();
+function loadModal(i) {
+  $('#myModal').remove();
+  if (i>11) {i=0;}
+  if (i<0) {i=11;}
+  let card = employees[i];
+   
   let $modal = `
-              <div id="myModal" class="modal" onclick="hideModal();">
+              <div id="myModal" class="modal" onclick="hideModal(event);">
                 <div class="modal-content">
-                  <span class="close" onclick="hideModal();">&times;</span>
+                  <span class="close" onclick="hideModal(event);">&times;</span>
                   <a href="#" class='modal-image clearfix'>
-                          <img src=${image}>
+                          <img src=${card.picture.large}>
                           </a>
                   <ul class="modal-info">
-                      <li class="name">${name}</li>
-                      <li class="email">${email}</li>
-                      <li class="location">${location}</li>
+                      <li class="modal-name">${card.name.first} ${card.name.last} </li>
+                      <li class="modal-email">${card.email}</li>
+                      <li class="modal-username">${card.login.username}</li>
+                      <hr/>
+                      <li class="modal-detail cell">${card.cell}</li>
+                      <li class="modal-detail location">${card.location.street}, ${card.location.city}, ${card.nat}, ${card.location.postcode}</li>
+                      <li class="modal-detail birth">Birthday: ${card.dob.toLocaleDateString('en-US')}</li>
                   </ul>
+                    <img class="prev" onclick="loadModal(${i}-1)" src="images/prev.png">
+                    <img class="next" onclick="loadModal(${i}+1)" src="images/next.png">
                 </div>
               </div>
               `;
@@ -52,8 +63,10 @@ function loadModal(card) {
   $('.modal').show();
 }
 
-function hideModal() {
-  $('.modal').hide();
+function hideModal(e) {
+  console.log(e.target.className);
+  if (e.target.className !== 'next' && e.target.className !== 'prev') {
+  $('.modal').hide();}
 }
 
 function filterEmployeesByName() {
@@ -64,7 +77,8 @@ function filterEmployeesByName() {
   if ($filterInput !== "") {
     $(".card").each(function () {
       let n = $(this).children(".info").children(".name").text();
-      if (n.indexOf($filterInput) < 0) {
+      let u = $(this).children(".info").children(".username").text();
+      if (n.indexOf($filterInput) < 0 && u.indexOf($filterInput) < 0) {
         // $matched.push($(this));
         $(this).hide();
       } else {
@@ -76,6 +90,8 @@ function filterEmployeesByName() {
   }
 }
 
+
+// Filter employees by name
 $(document).ready(function () {
 
   $("#filter").keyup(function () {
@@ -89,34 +105,5 @@ $(document).ready(function () {
 
   $employeeDirectory.children().remove();
   fetchData();
-
-
-  // When the user clicks on the button, open the modal 
-  // $(document).on("click", '.card', function (event) {
-  // // $('.card').click(function (event) {
-  //   console.log('clicked...')
-  //   // let item = event.target;
-  //   // let $modal = `
-  //   //           <div id="myModal" class="modal" onclick="hideModal();">
-  //   //             <div class="modal-content">
-  //   //               <span class="close" onclick="hideModal();">&times;</span>
-  //   //               <a href="https://randomuser.me/api/portraits/men/83.jpg" class='image clearfix'>
-  //   //                       <img src="https://randomuser.me/api/portraits/men/83.jpg">
-  //   //                       </a>
-  //   //               <ul class="modal-info">
-  //   //                   <li class="name">Michael Jackson</li>
-  //   //                   <li class="email">nice@ok.com </li>
-  //   //                   <li class="location">NL USA</li>
-  //   //               </ul>
-  //   //             </div>
-  //   //           </div>
-  //   //           `;
-  //   // $('.wrapper').append($modal);
-  //   // $('.modal').show();
-  //   $card = event.target
-  //   console.log($card);
-  //   loadModal($card);
-  // });
-
 
 });
