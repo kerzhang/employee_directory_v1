@@ -14,13 +14,6 @@ body {
 
 /* Layout
    ========================================================================== */
-
-/**
- * 
- */
-.wrapper {
-  margin: 0 auto;
-}
 .main-footer {
   padding: 1em 0;
   text-align: center;
@@ -28,19 +21,11 @@ body {
 }
 .main-header {
   padding: 1em 0;
-  width: 80%;
   margin: 0 auto;
 }
 
 ul {
-  margin: 0;
-  padding: 0;
   list-style: none;
-}
-
-.main-content {
-  width: 80%;
-  margin: 0 auto;
 }
 
 /* Elements
@@ -58,7 +43,6 @@ ul {
 }
 
 .card {
-  /*float: left;*/
   display: inline-flex;
   width: 30%;
   height: 150px;
@@ -67,8 +51,12 @@ ul {
   margin-right: 16px;
   margin-left: 16px;
   margin-bottom: 28px;
-  padding: 15px auto;
   background: #fff;
+}
+
+.card:hover {
+  transform: rotate(1deg);
+  box-shadow: 6px 6px 10px grey;
 }
 
 .image {
@@ -76,24 +64,31 @@ ul {
   padding: 3px 0 5px 0;
   margin-right: 10px;
 }
+
 img {
   border-radius: 50%;
-  display: inline;
-  /*padding-left: 5px;
-  padding-right: 5px;*/
-  padding: 10px;
+  display: inline-block;
+  padding: 8px;
 }
 .image:hover {
   background: #dfe3e4;
 }
 
 .info {
-  padding: 40px 10px 0 0;
+  padding: 30px 10px 0 0;
   display: inline;
 }
 
 .info li {
   margin-top: 5px;
+  word-wrap: break-word;
+}
+
+.name {
+  margin-bottom: 15px;
+}
+.email {
+  width: 185px;
 }
 /* Font 
    ========================================================================== */
@@ -135,8 +130,8 @@ img {
   background-color: #fefefe;
   margin: 10% auto;
   padding: 20px;
-  width: 300px;
-  height: 450px;
+  width: 350px;
+  height: 400px;
   border: 1px solid #888;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -161,46 +156,47 @@ img {
 
 .modal-info {
   display: block;
+  padding: 0;
 }
 
 .modal-detail {
-  /* margin-bottom: 8px; */
-    font-size: 0.9em;
-      color: #696969;
-      margin-top: 8px;
-
+  font-size: 0.9em;
+  color: #696969;
+  margin-top: 8px;
 }
 .modal-email {
-  /* margin-bottom: 8px; */
-    font-size: 0.9em;
-      color: #696969;
+  font-size: 0.9em;
+  color: #696969;
 }
 .modal-name {
   font-size: 1.2em;
   color: #000;
   font-weight: bold;
-    margin-bottom: 12px;
-
+  margin-bottom: 12px;
 }
 .modal-username {
-    margin-bottom: 18px;
-        font-size: 0.9em;
-      color: #696969;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #696969;
 }
 .modal-image {
   display: block;
   margin-bottom: 20px;
 }
+.modal-cell {
+  margin-top: 20px;
+}
 
 /* Slide handler
    ========================================================================== */
-.prev, .next {
+.prev,
+.next {
   cursor: pointer;
   position: absolute;
   width: auto;
   transition: 0.6s ease;
   opacity: 0.1;
-
 }
 
 /* Position the "next button" to the right */
@@ -216,14 +212,20 @@ img {
 }
 
 /* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
+.prev:hover,
+.next:hover {
   opacity: 1;
 }
-
 
 /* Media query
    ========================================================================== */
 @media (min-width: 769px) {
+  .wrapper {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1185px;
+    overflow: hidden;
+  }
   .caption {
     float: left;
     margin-left: 20px;
@@ -247,9 +249,5 @@ img {
     content: '';
     display: table;
     clear: both;
-  }
-  .main-header,
-  .main-content {
-    max-width: 1185px;
   }
 }

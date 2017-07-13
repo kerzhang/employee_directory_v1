@@ -4,7 +4,7 @@ let employees = [];
 function fetchData() {
   $.ajax({
     type: "get",
-    url: "https://randomuser.me/api/?results=12",
+    url: "https://randomuser.me/api/?results=12&nat=AU,CA,DE,DK,ES,FI,FR,GB,IE,NZ,US",
     data: "data",
     dataType: "json",
     success: function (data) {
@@ -15,7 +15,7 @@ function fetchData() {
                             </a>
                           <ul class="info">
                             <li class="name">${item.name.first} ${item.name.last} </li>
-                            <li class="email">${item.email} </li>
+                            <li class="email">${item.email}</li>
                             <li class="location">${item.location.city}, ${item.nat}</li>
                             <li class="username" style="display: none">${item.login.username}</li>
                             <li class="cell" style="display: none">${item.cell}</li>
@@ -30,6 +30,11 @@ function fetchData() {
       });
     }
   });
+}
+
+function parseBirth(birthString) {
+  let d = new Date(birthString);
+  return d.toLocaleDateString('en-US');
 }
 
 function loadModal(i) {
@@ -50,9 +55,9 @@ function loadModal(i) {
                       <li class="modal-email">${card.email}</li>
                       <li class="modal-username">${card.login.username}</li>
                       <hr/>
-                      <li class="modal-detail cell">${card.cell}</li>
+                      <li class="modal-detail modal-cell">${card.cell}</li>
                       <li class="modal-detail location">${card.location.street}, ${card.location.city}, ${card.nat}, ${card.location.postcode}</li>
-                      <li class="modal-detail birth">Birthday: ${card.dob.toLocaleDateString('en-US')}</li>
+                      <li class="modal-detail birth">Birthday: ${parseBirth(card.dob)}</li>
                   </ul>
                     <img class="prev" onclick="loadModal(${i}-1)" src="images/prev.png">
                     <img class="next" onclick="loadModal(${i}+1)" src="images/next.png">
@@ -64,7 +69,7 @@ function loadModal(i) {
 }
 
 function hideModal(e) {
-  console.log(e.target.className);
+  // console.log(e.target.className);
   if (e.target.className !== 'next' && e.target.className !== 'prev') {
   $('.modal').hide();}
 }
@@ -105,5 +110,6 @@ $(document).ready(function () {
 
   $employeeDirectory.children().remove();
   fetchData();
+
 
 });
