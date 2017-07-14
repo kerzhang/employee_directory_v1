@@ -1,6 +1,7 @@
 let $employeeDirectory = $(".ajax");
 let employees = [];
 
+// Get employee data from randomuser.me, parse the string for each required field
 function fetchData() {
   $.ajax({
     type: "get",
@@ -9,6 +10,7 @@ function fetchData() {
     dataType: "json",
     success: function (data) {
       $.each(data.results, function (index, item) {
+        //create the employee card. The fields which will be used in modal are hide here.
         let $card = `<li class="card clearfix" onClick="loadModal(${index});">
                           <a href="#" class='image clearfix'>
                             <img src=${item.picture.large}>
@@ -27,16 +29,26 @@ function fetchData() {
                       `;
         employees.push(item);
         $employeeDirectory.append($card);
+        console.log(item.name.first);
       });
     }
   });
 }
 
+//Parse the birthday information.
 function parseBirth(birthString) {
-  let d = new Date(birthString);
-  return d.toLocaleDateString('en-US');
+  // Don't know why below code doesn't work on Safari...
+  // let d = new Date(birthString);
+  // return d.toLocaleDateString('en-US');
+
+  //Parse the string then
+  let year = birthString.slice(2,4);
+  let month = birthString.slice(5,7);
+  let d = birthString.slice(8, 10)
+  return d + '/' + month + '/' + year;
 }
 
+//Modal window creater.
 function loadModal(i) {
   $('#myModal').remove();
   if (i>11) {i=0;}
@@ -68,15 +80,17 @@ function loadModal(i) {
   $('.modal').show();
 }
 
+//Hide modal window when the mouse click is not on navigator symbol.
 function hideModal(e) {
   // console.log(e.target.className);
   if (e.target.className !== 'next' && e.target.className !== 'prev') {
   $('.modal').hide();}
 }
 
+//Employee name filter, from either first last name or username.
 function filterEmployeesByName() {
   const $cards = $(".card");
-  let $matched = [];
+  let $matched = 0;
   let $filterInput = $("#filter").val();
 
   if ($filterInput !== "") {
@@ -84,13 +98,19 @@ function filterEmployeesByName() {
       let n = $(this).children(".info").children(".name").text();
       let u = $(this).children(".info").children(".username").text();
       if (n.indexOf($filterInput) < 0 && u.indexOf($filterInput) < 0) {
-        // $matched.push($(this));
         $(this).hide();
       } else {
+        $matched += 1;
         $(this).show();
+      }
+      if ($matched === 0) {
+        $('.main-footer span').text("No matched face...");
+      } else {
+        $('.main-footer span').text("So many beautiful faces ...");
       }
     });
   } else {
+    //show all employees if input field is blank.
     $(".card").show();
   }
 }
@@ -103,6 +123,7 @@ $(document).ready(function () {
     filterEmployeesByName();
   });
 
+  //this is to handle 'delete' event.
   $("#filter").change(function () {
     filterEmployeesByName();
   });
